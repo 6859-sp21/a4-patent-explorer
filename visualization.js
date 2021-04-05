@@ -3,6 +3,10 @@
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+const mapOffsetX = width/2
+const mapOffsetY = height/1.4
+const mapScale = 200
+
 const zoomMin = 1.0
 const zoomMax = 50
 
@@ -22,14 +26,17 @@ const map = svg.append('g')
               .attr('height', height)
               .call(d3.zoom()
                 .scaleExtent([zoomMin, zoomMax])
+                .translateExtent([[0,0], [width,height]])
                 .extent([[0, 0], [width, height]])
                 .on("zoom", zoomed));
 
 function zoomed({transform}) {
+  console.log(transform)
   map.attr("transform", transform);
   map.selectAll("circle")
     .attr("r", markerRadius/transform.k); // keep marker size constant on screen
 }
+
 
 // add background rectangle to enable interaction anywhere on map
 background = map.append('rect')
@@ -41,8 +48,8 @@ background = map.append('rect')
 
 
 // add countries to map
-const projection = d3.geoMercator().scale(200)
-  .translate([width/2, height/1.4]);
+const projection = d3.geoMercator().scale(mapScale)
+  .translate([mapOffsetX, mapOffsetY]);
 const geoPath = d3.geoPath(projection);
 
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
