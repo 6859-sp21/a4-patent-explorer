@@ -11,7 +11,7 @@ const projection = d3.geoMercator().scale(200)
   .translate([width/2, height/1.4]);
 const path = d3.geoPath(projection);
 
-const g =  svg.append('g')
+const g = svg.append('g')
               .call(d3.zoom()
               .scaleExtent([1/2, 4])
               .on("zoom", zoomed));
@@ -47,12 +47,14 @@ g.selectAll('path')
   });
 
   // Load lat and long from csv file
-  d3.csv("Patent_10yrs_lat+long.csv").then(function(data) {
+  d3.csv("Patent_5yrs_lat+long.csv").then(function(data) {
     var latlonglist = [];
-    for (var i=0; i < data.length/10; i++) {
+    // for (var i=0; i < data.length/1000; i++) {
+    for (var i=0; i < 100; i++) {
       latlonglist.push([data[i].longitude,data[i].latitude]);
   }
-  svg.selectAll("circle")
+  // svg.selectAll("circle")
+  g.selectAll("circle")
   .data(latlonglist).enter()
   .append("circle")
   .attr("cx", function (d) { console.log(projection(d)); return projection(d)[0]; })
@@ -61,7 +63,6 @@ g.selectAll('path')
   .attr("fill", "gold")
   .attr('cursor', 'pointer');
   });
-
 
   // function main() {
   //   var margin = { top:50, left: 50, right: 50, bottom: 50},
