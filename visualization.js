@@ -43,6 +43,15 @@ function zoomed() {
   map.attr("transform", transform);
   map.selectAll("circle")
     .attr("r", markerRadius/transform.k); // keep marker size constant on screen
+
+  // hide the text
+  if(showText){
+    showText = false
+    d3.selectAll('text')
+      .transition()
+      .duration(600)
+      .style('opacity', 0)
+  }
 }
 
 
@@ -119,6 +128,54 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
 
    });
   });
+
+
+// add text
+var showText = true
+title = svg.append('text')
+  .text('Patent Explorer')
+  .attr('x', 30)
+  .attr('y', 60)
+  .attr('id', 'title')
+
+description = svg.append('text')
+  .attr('x', 30)
+  .attr('y', 90)
+description.append('tspan')
+    .text('Where do good ideas come from?')
+    .attr('dy', 7)
+    .attr('x', 30)
+description.append('tspan')
+    .text('Explore patents filed around the world:')
+    .attr('dy', 30)
+    .attr('x', 30)
+description.append('tspan')
+    .text('scroll')
+    .attr('dy', 30)
+    .attr('x', 50)
+    .attr('class', 'action')
+description.append('tspan')
+    .text(' to zoom')
+description.append('tspan')
+    .text('click and drag')
+    .attr('dy', 30)
+    .attr('x', 50)
+    .attr('class', 'action')
+description.append('tspan')
+    .text(' to pan')
+description.append('tspan')
+    .text('hover')
+    .attr('dy', 30)
+    .attr('x', 50)
+    .attr('class', 'action')
+description.append('tspan')
+    .text(' to explore data')
+
+sourceInfo = svg.append('text')
+  .text('Data source: patentsview.org')
+  .attr('x', 15)
+  .attr('y', height-20)
+  .attr('id', 'source')
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
