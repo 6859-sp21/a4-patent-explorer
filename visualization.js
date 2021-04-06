@@ -31,6 +31,10 @@ const map = svg.append('g')
               .attr('width', width)
               .attr('height', height)
 
+var tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip") //class was defined above to determine how tooltips appear
+                .style("opacity", 0);
+
 
 // specify what happens when when we zoom
 function zoomed() {
@@ -78,6 +82,7 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
     for (var i=0; i < 200; i++) {
       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year]);
   }
+  const symbol = d3.symbol();
   map.selectAll("circle")
   .data(latlonglist)
   .enter()
@@ -87,8 +92,33 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
   .attr("cy", function (d) { return projection(d)[1]; })
   .attr("r", markerRadius)
   .attr("fill", "gold")
-  .attr('cursor', 'pointer');
-});
+  .attr('cursor', 'pointer')
+  .attr('d', d => symbol())
+  .on("mouseover", function(event, d) {
+    tooltip.transition()
+      .duration(200) //animation technique makes the tooltips visible
+      .style("opacity", .9);
+    tooltip.html("Longitude "  + "<br/> Latitude: " )
+      .style("left", (event.pageX) + "px")
+      .style("background", "gold")
+      .style("top", (event.pageY - 28) + "px");
+
+     d3.select(this) //select the point and change its properties on mouseover
+       .attr("fill", "white")
+     //  console.log("Longitude " + function (d) {return d[0];}+ "<br/> Latitude: " + function (d) {return d[1];})
+     //  .attr('d', symbol.size(64 * 4));
+    })
+  .on("mouseout", function(event, d) {
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+
+    d3.select(this) //restore point to original value
+       .attr("fill", "gold")
+    //   .attr("d", symbol.size(64));
+
+   });
+  });
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
