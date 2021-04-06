@@ -70,8 +70,8 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
 d3.csv("Patent_5yrs_lat+long+year.csv")
   .then(function(data) {
     var latlonglist = [];
-    for (var i=0; i < data.length; i++) {
-    // for (var i=0; i < 100; i++) {
+    // for (var i=0; i < data.length; i++) {
+    for (var i=0; i < 200; i++) {
       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year]);
   }
   map.selectAll("circle")

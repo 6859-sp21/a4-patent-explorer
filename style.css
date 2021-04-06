@@ -1,0 +1,12 @@
+* {
+font-family: "Helvetica Neue";
+}
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+p {
+font-size: 0.85em;
+}
+svg {
+background: #efefef;
+}
