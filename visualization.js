@@ -88,10 +88,10 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
   .then(function(data) {
     var latlonglist = [];
     // for (var i=0; i < data.length; i++) {
-    for (var i=0; i < 200; i++) {
+    for (var i=0; i < 100; i++) {
       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year]);
   }
-  const symbol = d3.symbol();
+ // const symbol = d3.symbol();
   map.selectAll("circle")
   .data(latlonglist)
   .enter()
@@ -102,15 +102,16 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
   .attr("r", markerRadius)
   .attr("fill", "gold")
   .attr('cursor', 'pointer')
-  .attr('d', d => symbol())
+  //.attr('d', d => symbol())
   .on("mouseover", function(event, d) {
     tooltip.transition()
       .duration(200) //animation technique makes the tooltips visible
       .style("opacity", .9);
-    tooltip.html("Longitude "  + "<br/> Latitude: " )
+    tooltip.html("Longitude " )
       .style("left", (event.pageX) + "px")
       .style("background", "gold")
       .style("top", (event.pageY - 28) + "px");
+      console.log( "Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
 
      d3.select(this) //select the point and change its properties on mouseover
        .attr("fill", "white")
@@ -172,7 +173,7 @@ description.append('tspan')
     .text(' to explore data')
 
 sourceInfo = svg.append('text')
-  .text('Data source: patentsview.org')
+  .text('Data source: patentsview.org (2018)')
   .attr('x', 15)
   .attr('y', height-20)
   .attr('id', 'source')
