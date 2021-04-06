@@ -3,6 +3,7 @@ font-family: "Helvetica Neue";
 }
 body {
   overflow: hidden; /* Hide scrollbars */
+  margin: 0px 0px 0px 0px;
 }
 p {
 font-size: 0.85em;

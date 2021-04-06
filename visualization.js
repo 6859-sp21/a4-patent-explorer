@@ -1,5 +1,3 @@
-// const width = 1800
-// const height = 900
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -20,17 +18,23 @@ const svg = d3.select('body')
               .attr('height', height);
 
 
+// create pan and zoom interaction and add to svg canvas
+zoom = d3.zoom()
+        .scaleExtent([zoomMin, zoomMax])
+        .translateExtent([[0,0], [width,height]])
+        .on("zoom", zoomed)
+svg.call(zoom)
+
+
 // create map container with pan and zoom
 const map = svg.append('g')
               .attr('width', width)
               .attr('height', height)
-              .call(d3.zoom()
-                .scaleExtent([zoomMin, zoomMax])
-                .translateExtent([[0,0], [width,height]])
-                .extent([[0, 0], [width, height]])
-                .on("zoom", zoomed));
 
-function zoomed({transform}) {
+
+// specify what happens when when we zoom
+function zoomed() {
+  transform = d3.event.transform
   console.log(transform)
   map.attr("transform", transform);
   map.selectAll("circle")
@@ -98,7 +102,12 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
 //   .attr( "stroke", "#999" )
 //   .attr( "d", geoPath );
 
-
+// function zoomed({transform}) {
+//   console.log(transform)
+//   map.attr("transform", transform);
+//   map.selectAll("circle")
+//     .attr("r", markerRadius/transform.k); // keep marker size constant on screen
+// }
 
 
 // function zoomed() {
