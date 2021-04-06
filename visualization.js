@@ -67,17 +67,18 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
 
 
 // add point markers to map
-d3.csv("Patent_5yrs_lat+long.csv")
+d3.csv("Patent_5yrs_lat+long+year.csv")
   .then(function(data) {
     var latlonglist = [];
-    // for (var i=0; i < data.length; i++) {
-    for (var i=0; i < 100; i++) {
-      latlonglist.push([data[i].longitude,data[i].latitude]);
+    for (var i=0; i < data.length; i++) {
+    // for (var i=0; i < 100; i++) {
+      latlonglist.push([data[i].longitude, data[i].latitude, data[i].year]);
   }
   map.selectAll("circle")
   .data(latlonglist)
   .enter()
   .append("circle")
+  .filter(function(d){ return d[2] === "2018"})
   .attr("cx", function (d) { return projection(d)[0]; })
   .attr("cy", function (d) { return projection(d)[1]; })
   .attr("r", markerRadius)
