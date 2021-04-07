@@ -88,7 +88,7 @@ d3.csv("Patent_5yrs_all.csv")
   .then(function(data) {
     var latlonglist = [];
     // for (var i=0; i < data.length; i++) {
-    for (var i=0; i < 200; i++) {
+    for (var i=0; i < 500; i++) {
       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year, data[i].city,data[i].state,data[i].country,data[i].organization]);
   }
   // const symbol = d3.symbol();
