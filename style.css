@@ -43,7 +43,7 @@ text {
 
 
 /*experimental night theme*/
-/*.country{
+.country{
   fill: #0b1c31;
   stroke: #f4d58d21;
 }
@@ -59,4 +59,4 @@ text {
 }
 div.tooltip {
   background: #fcff3a;
-}*/
+}
