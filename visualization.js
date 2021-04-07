@@ -31,6 +31,7 @@ const map = svg.append('g')
               .attr('width', width)
               .attr('height', height)
 
+//calls tooltip class css
 var tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip") //class was defined above to determine how tooltips appear
                 .style("opacity", 0);
@@ -84,14 +85,14 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
 
 
 // add point markers to map
-d3.csv("Patent_5yrs_lat+long+year.csv")
+d3.csv("Patent_5yrs_all.csv")
   .then(function(data) {
     var latlonglist = [];
     // for (var i=0; i < data.length; i++) {
-    for (var i=0; i < 100; i++) {
-      latlonglist.push([data[i].longitude, data[i].latitude, data[i].year]);
+    for (var i=0; i < 200; i++) {
+      latlonglist.push([data[i].longitude, data[i].latitude, data[i].year, data[i].city,data[i].state,data[i].country,data[i].organization]);
   }
- // const symbol = d3.symbol();
+  // const symbol = d3.symbol();
   map.selectAll("circle")
   .data(latlonglist)
   .enter()
@@ -102,12 +103,12 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
   .attr("r", markerRadius)
   .attr("fill", "gold")
   .attr('cursor', 'pointer')
-  //.attr('d', d => symbol())
+  
   .on("mouseover", function(d, i) {
     tooltip.transition()
       .duration(200) //animation technique makes the tooltips visible
       .style("opacity", .9);
-    tooltip.html("Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
+    tooltip.html("Location: " + (d)[3] +" "+(d)[4] +", "+(d)[5] + "<br/> Company: " +(d)[6])
       .style("left", (d3.event.pageX) + "px")
       .style("background", "gold")
       .style("top", (d3.event.pageY - 28) + "px");
@@ -115,8 +116,7 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
 
      d3.select(this) //select the point and change its properties on mouseover
        .attr("fill", "white")
-     //  console.log("Longitude " + function (d) {return d[0];}+ "<br/> Latitude: " + function (d) {return d[1];})
-     //  .attr('d', symbol.size(64 * 4));
+       .attr("r", (2 * markerRadius));
     })
   .on("mouseout", function(event, d) {
     tooltip.transition()
@@ -125,7 +125,7 @@ d3.csv("Patent_5yrs_lat+long+year.csv")
 
     d3.select(this) //restore point to original value
        .attr("fill", "gold")
-    //   .attr("d", symbol.size(64));
+       .attr("r", markerRadius);
 
    });
   });
