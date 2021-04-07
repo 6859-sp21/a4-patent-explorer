@@ -62,8 +62,7 @@ background = map.append('rect')
   .attr('y', 0)
   .attr('width', width)
   .attr('height', height)
-  .attr('fill', 'gray');
-
+  .attr('id', 'ocean')
 
 // add countries to map
 const projection = d3.geoMercator().scale(mapScale)
@@ -101,7 +100,8 @@ d3.csv("Patent_5yrs_all.csv")
   .attr("cx", function (d) { return projection(d)[0]; })
   .attr("cy", function (d) { return projection(d)[1]; })
   .attr("r", markerRadius)
-  .attr("fill", "gold")
+  // .attr("fill", "gold")
+  .attr('class', 'marker')
   .attr('cursor', 'pointer')
   
   .on("mouseover", function(d, i) {
@@ -110,7 +110,6 @@ d3.csv("Patent_5yrs_all.csv")
       .style("opacity", .9);
     tooltip.html("Location: " + (d)[3] +" "+(d)[4] +", "+(d)[5] + "<br/> Company: " +(d)[6])
       .style("left", (d3.event.pageX) + "px")
-      .style("background", "gold")
       .style("top", (d3.event.pageY - 28) + "px");
       console.log( "Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
 
