@@ -22,14 +22,14 @@ div.tooltip {
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
-	background: gold;
+	background: white;
 }
 text {
 	font-size: 20;
 }
-.marker{
+/* .marker{
   fill: gold;
-}
+} */
 .action {
 	font-weight: bold
 }
@@ -54,9 +54,9 @@ text {
   font-size: 20;
   fill: #feffc8;
 }
-.marker{
+/* .marker{
   fill: #fcff3a;
-}
+} */
 div.tooltip {
-  background: #fcff3a;
+  background: white;
 }

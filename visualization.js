@@ -36,14 +36,17 @@ var tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip") //class was defined above to determine how tooltips appear
                 .style("opacity", 0);
 
+// Tracks clicking
+var isClicked = false;
 
 // specify what happens when when we zoom
 function zoomed() {
   transform = d3.event.transform
-  console.log(transform)
+  //console.log(transform)
   map.attr("transform", transform);
   map.selectAll("circle")
-    .attr("r", markerRadius/transform.k); // keep marker size constant on screen
+  .attr("r", markerRadius);
+    // .attr("r", markerRadius/transform.k); // keep marker size constant on screen
 
   // hide the text
   if(showText){
@@ -82,7 +85,6 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
       .attr('d', geoPath);
 });
 
-
 // add point markers to map
 d3.csv("Patent_5yrs_all.csv")
   .then(function(data) {
@@ -91,46 +93,106 @@ d3.csv("Patent_5yrs_all.csv")
     for (var i=0; i < 1000; i++) {
       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year, data[i].city,data[i].state,data[i].country,data[i].organization]);
   }
+  selection = [];
   // const symbol = d3.symbol();
   map.selectAll("circle")
   .data(latlonglist)
   .enter()
   .append("circle")
-  .filter(function(d){ return d[2] === "2018"})
+  //.filter(function(d){ return d[6] === selection})
+  //.filter(function(d){ return d[2] === "2018"})
   .attr("cx", function (d) { return projection(d)[0]; })
   .attr("cy", function (d) { return projection(d)[1]; })
   .attr("r", markerRadius)
-  // .attr("fill", "gold")
+  .attr("fill", "gold")
   .attr('class', 'marker')
   .attr('cursor', 'pointer')
-  
+  .style('opacity', 0.6)
+
+  // d3.select("#range1").on("input", function(){
+  //   map.selectAll('circle')
+  //   .data(latlonglist)
+  //   .enter()
+  //   .append("circle")
+  //   .filter(function(d){
+  //     return d[2] === d3.select("#range1").property("value")})
+  //   .attr("r", markerR  adius)
+  //   .attr("fill", "gold")
+  //   .attr('class', 'marker')
+  //   .attr('cursor', 'pointer')
+  // })
+
+
   .on("mouseover", function(d, i) {
     tooltip.transition()
-      .duration(200) //animation technique makes the tooltips visible
+      .duration(500) //animation technique makes the tooltips visible
       .style("opacity", .9);
     tooltip.html("Location: " + (d)[3] +" "+(d)[4] +", "+(d)[5] + "<br/> Company: " +(d)[6])
       .style("left", (d3.event.pageX) + "px")
       .style("top", (d3.event.pageY - 28) + "px");
-      console.log( "Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
+      //console.log( "Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
 
      d3.select(this) //select the point and change its properties on mouseover
+       .transition()
+       .duration(300)
        .attr("fill", "white")
-       .attr("r", (2 * markerRadius));
+       .style("opacity", 1)
+       // .attr("r", (5 * markerRadius/transform.k))
     })
+
   .on("mouseout", function(event, d) {
     tooltip.transition()
-      .duration(500)
+      .duration(300)
       .style("opacity", 0);
 
-    d3.select(this) //restore point to original value
-       .attr("fill", "gold")
-       .attr("r", markerRadius);
+    d3.select(this)
+      .transition()
+      .attr("r", markerRadius)
+      .style("opacity", 0.6)
+      // .attr("r", markerRadius/transform.k)
 
-   });
+    if(isClicked === false){
+      d3.select(this) //restore point to original value
+         .transition()
+         .duration(300)
+         .attr("fill", "gold")
+         //.attr("r", markerRadius)
+         .attr("r", markerRadius)
+         // .attr("r", markerRadius/transform.k)
+    }
+  })
+
+  // highlight related companies
+
+  .on("click", function(d,i){
+    isClicked = true;
+    selection = d[2];
+    d3.selectAll(d[2]==="2018").style("fill-opacity", 1)
+    .attr("r", 5*markerRadius);
+    d3.select(this)
+    .transition()
+    .attr('fill',"white")
+    .attr("r", markerRadius/transform.k)
+    .style('opacity', 1)
+    //console.log(selection)
   });
 
+console.log(selection)
 
+  });
+
+// d3.select("#range1").on("input", function(){
+//
+//   svg.selectAll('circle')
+//   .transition()
+//   .attr("fill", "gold")
+//   .filter(function(d){
+//
+//     return d[2] === d3.select("#range1").property("value")})
+//   // .attr("fill", "red")
+// });
 // add text
+
 var showText = true
 title = svg.append('text')
   .text('Patent Explorer')
