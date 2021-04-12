@@ -1,3 +1,7 @@
+/*define global variables here*/
+:root {
+}
+
 * {
 	font-family: "Helvetica Neue";
 }
@@ -81,3 +85,25 @@ text {
 div.tooltip {
   background: white;
 }
+
+.searchBarWrapper{
+  width:300;
+  height:90;
+  background-color: transparent;
+  color: white;
+  position:fixed;
+  left:50%;
+  margin-left:-150;
+}
+
+#searchBar{
+  width:300;
+  height:30;
+  background-color: transparent;
+  color: white;
+  border: 0px;
+  position:fixed;
+  left:50%;
+  margin-left:-150;
+}
+
