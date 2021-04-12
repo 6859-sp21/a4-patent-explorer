@@ -1,5 +1,6 @@
 /*define global variables here*/
 :root {
+
 }
 
 * {
@@ -90,7 +91,7 @@ div.tooltip {
   width:300;
   height:90;
   background-color: transparent;
-  color: white;
+  color: #feffc8;
   position:fixed;
   left:50%;
   margin-left:-150;
@@ -100,10 +101,63 @@ div.tooltip {
   width:300;
   height:30;
   background-color: transparent;
-  color: white;
+  font-size: 20;
+  color: #feffc8;
   border: 0px;
   position:fixed;
   left:50%;
   margin-left:-150;
 }
 
+#searchBar:focus{
+  outline-width: 0;
+}
+
+.autoComplete_result{
+  margin:.3rem;
+  padding:.3rem .5rem;
+  list-style:none;
+  text-align:left;
+  font-size:1rem;
+  color: #feffc8;
+  transition:all .1s ease-in-out;
+  border-radius: .35rem;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition:all .2s ease
+}
+
+.autoComplete_result::selection{
+  color:rgba(#fff,0);
+  background-color: red;
+}
+.autoComplete_result:hover{
+  cursor:pointer;
+  background-color: #0b1c31;
+  font-weight: bold;
+}
+.autoComplete_highlighted{
+  font-weight: 1500
+  color: green;
+}
+.autoComplete_highlighted::selection{
+  color: purple;
+  background-color: yellow;
+}
+/*.autoComplete_selected{
+  cursor:pointer;
+  background-color:rgba(255,122,122,.15)}
+@media only screen and (max-width:600px){*/
+/*.autoComplete_wrapper{
+  width:320px
+}*/
+/*#autoComplete{width:18rem;
+  background-size:1.6rem;
+  background-position:left 1.1rem top .75rem}
+#autoComplete_list{margin:10px}}@media screen and (-webkit-min-device-pixel-ratio:0){
+#autoComplete{border-width:1px}}@-moz-document url-prefix(){#autoComplete{background-size:1.2rem;
+  background-origin:border-box;
+  border-width:1px;
+  background-position:left 1.1rem top .8rem}*/

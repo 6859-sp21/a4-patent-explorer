@@ -181,20 +181,24 @@ d3.csv("Patent_5yrs_all.csv")
 
 
   // text search bar
-  new autoComplete({
+  // console.log(data)
+  searchBar = new autoComplete({
         selector: "#searchBar",
-        placeHolder: "Type a company name",
+        placeHolder: "Type a company name...",
         data: {
-            src: ["Sauce - Thousand Island", "Wild Boar - Tenderloin", "Goat - Whole Cut"]
+            src: data,
+            key: ['organization']
+        },
+        onSelection: (feedback) => {
+          patent = feedback.selection.value
+          console.log(feedback);
+          alert(patent.organization);
         },
         resultsList: {
             noResults: (list, query) => {
-                // Create "No Results" message list element
                 const message = document.createElement("li");
                 message.setAttribute("class", "no_result");
-                // Add message text content
-                message.innerHTML = `<span>Found No Results for "${query}"</span>`;
-                // Add message list element to the list
+                message.innerHTML = '<span>no results</span>';
                 list.appendChild(message);
             },
         },
@@ -205,10 +209,15 @@ d3.csv("Patent_5yrs_all.csv")
         }
   });
 
+  // Overrides the default autocomplete filter function to search only from the beginning of the string
+  searchBar.filter = function (array, term) {
+    var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
+    return $.grep(array, function (value) {
+        return matcher.test(value.label || value.value || value);
+    });
+  };
+
 });
-
-
-
 
 
 
