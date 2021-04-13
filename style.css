@@ -102,15 +102,21 @@ div.tooltip {
   height:30;
   background-color: transparent;
   font-size: 20;
-  color: #feffc8;
+  /*color: #feffc8;*/
   border: 0px;
   position:fixed;
   left:50%;
   margin-left:-150;
+  color: transparent;
+  text-shadow: 0 0 0 gray;
 }
 
 #searchBar:focus{
   outline-width: 0;
+}
+
+.inputselect{
+  caret-color: transparent;
 }
 
 .autoComplete_result{
@@ -155,8 +161,14 @@ div.tooltip {
 }*/
 /*#autoComplete{width:18rem;
   background-size:1.6rem;
-  background-position:left 1.1rem top .75rem}
-#autoComplete_list{margin:10px}}@media screen and (-webkit-min-device-pixel-ratio:0){
+  background-position:left 1.1rem top .75rem}*/
+#autoComplete_list{
+  margin:10px;
+  padding-inline-start: 0px;
+  padding-top:30px;
+}
+
+/*}@media screen and (-webkit-min-device-pixel-ratio:0){
 #autoComplete{border-width:1px}}@-moz-document url-prefix(){#autoComplete{background-size:1.2rem;
   background-origin:border-box;
   border-width:1px;

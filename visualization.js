@@ -170,34 +170,40 @@ d3.csv("Patent_5yrs_all.csv")
     }
 
     displayCircles(data.filter( function(d) { return +d.year === 2015 }));
+    var orgList = [...new Set(data.filter( 
+      function(d) { return +d.year === 2015 }).map(x=>x.organization))] 
+
 
     d3.select("#range1").on("change", function() {
         var selectedValue = this.value;
         var newData = data.filter( function(d) { return +d.year === +selectedValue });
         displayCircles(newData);
         removeCircles(newData);
+
+        // restrict the searchable companies to those with displayed patents
+        orgList = [...new Set(newData.map(x=>x.organization))] 
         }
       );
 
-
   // text search bar
-  // console.log(data)
   searchBar = new autoComplete({
         selector: "#searchBar",
         placeHolder: "Type a company name...",
         data: {
-            src: data,
-            key: ['organization']
+            src: orgList,
         },
         onSelection: (feedback) => {
-          patent = feedback.selection.value
-          console.log(feedback);
-          alert(patent.organization);
+          selectedOrg = feedback.selection.value
+
+          // get that organization's patents
+          map.selectAll("circle")
+              .filter(function(d, i) {return d.organization === selectedOrg;})
+              .attr("fill", "red")
         },
         resultsList: {
             noResults: (list, query) => {
                 const message = document.createElement("li");
-                message.setAttribute("class", "no_result");
+                message.setAttribute("class", "autoComplete_result");
                 message.innerHTML = '<span>no results</span>';
                 list.appendChild(message);
             },
@@ -209,13 +215,8 @@ d3.csv("Patent_5yrs_all.csv")
         }
   });
 
-  // Overrides the default autocomplete filter function to search only from the beginning of the string
-  searchBar.filter = function (array, term) {
-    var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
-    return $.grep(array, function (value) {
-        return matcher.test(value.label || value.value || value);
-    });
-  };
+
+
 
 });
 
