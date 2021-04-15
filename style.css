@@ -167,7 +167,7 @@ circle.hoverMarker {
 
 circle.selectedMarker {
   opacity: 1.0;
-  fill: red;
+  fill: #ef721a;
   r: 10;
 }
 
