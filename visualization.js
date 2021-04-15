@@ -245,9 +245,26 @@ d3.csv("Patent_5yrs_all.csv")
             highlight: {
                 render: true
             }
-        }
+        },
+		trigger: {
+		    event: ["input"],
+		    condition: (event, queryValue) => {
+
+		    	// clear the marker selections if the user hits the X on the search bar
+		    	// or if they start to backspace
+		    	if((event.inputType===undefined && event.type==='input') || event.inputType==='deleteContentBackward'){
+		    		map.selectAll("circle")
+		    		    .transition()
+                 		.duration(300)
+              			.attr('class', 'normalMarker')
+		    	}
+		    	
+		        return queryValue.replace(/ /g, "").length; // Returns "Boolean"
+		    }
+		}
   });
 
+  // console.log(searchBar)
 
 });
 
