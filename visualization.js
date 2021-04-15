@@ -214,6 +214,7 @@ d3.csv("Patent_5yrs_all.csv")
         }
       );
 
+
   // text search bar
   searchBar = new autoComplete({
         selector: "#searchBar",
@@ -224,14 +225,14 @@ d3.csv("Patent_5yrs_all.csv")
         onSelection: (feedback) => {
           selectedOrg = feedback.selection.value
 
-          // get that organization's patents
+          // get that organization's patent markers
           map.selectAll("circle")
               .filter(function(d, i) {return d.organization === selectedOrg;})
               .attr('class', 'selectedMarker')
-              // .attr("fill", "red")
-              // .attr("r", 15)
-              // .style("opacity", 1.0)
-              // this.parentElement.appendChild(this);
+
+
+         	document.getElementById('searchBar').value = selectedOrg;
+
         },
         resultsList: {
             noResults: (list, query) => {
