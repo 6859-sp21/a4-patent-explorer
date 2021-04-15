@@ -49,13 +49,31 @@ function zoomed() {
     // .attr("r", markerRadius/transform.k); // keep marker size constant on screen
 
   // hide the text
-  if(showText){
-    showText = false
-    d3.selectAll('text')
+  if(showText && transform.k!=1.0){
+  	showText = false
+  	d3.selectAll('text')
       .transition()
       .duration(600)
       .style('opacity', 0)
-  }
+    }
+
+  // hide the text
+  if(!showText && transform.k==1.0){
+  	showText = true
+  	d3.selectAll('text')
+      .transition()
+      .duration(600)
+      .style('opacity', 1)
+    }
+
+
+  // if(showText){
+  //   showText = false
+  //   d3.selectAll('text')
+  //     .transition()
+  //     .duration(600)
+  //     .style('opacity', 0)
+  // }
 }
 
 
