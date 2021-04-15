@@ -85,14 +85,7 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
       .attr('d', geoPath);
 });
 
-// add point markers to map
-// d3.csv("Patent_5yrs_all.csv")
-//   .then(function(data) {
-//     var latlonglist = [];
-//     // for (var i=0; i < data.length; i++) {
-//     for (var i=0; i < 1000; i++) {
-//       latlonglist.push([data[i].longitude, data[i].latitude, data[i].year, data[i].city,data[i].state,data[i].country,data[i].organization]);
-//   }
+
 d3.csv("Patent_5yrs_all.csv")
   .then(function(data) {
     var id = 0;
@@ -109,10 +102,10 @@ d3.csv("Patent_5yrs_all.csv")
                       .attr("cx", function (d) { return projection([d.longitude, d.latitude])[0] })
                       .attr("cy", function (d) { return projection([d.longitude, d.latitude])[1] })
                       .attr("r", markerRadius)
-                      .attr("fill", "gold")
-                      .attr('class', 'marker')
+                      // .attr("fill", "gold")
+                      .attr('class', 'normalMarker')
                       .attr('cursor', 'pointer')
-                    .style('opacity', 0.6);
+                    // .style('opacity', 0.6);
 
         circles.transition()
                 .delay(400)
@@ -127,12 +120,26 @@ d3.csv("Patent_5yrs_all.csv")
                 .style("top", (d3.event.pageY - 28) + "px");
                 //console.log( "Longitude " + (d)[0] + "<br/> Latitude: " +(d)[1])
 
-               d3.select(this) //select the point and change its properties on mouseover
-                 .transition()
-                 .duration(300)
-                 .attr("fill", "white")
-                 .style("opacity", 1)
-                 // .attr("r", (5 * markerRadius/transform.k))
+               if(this.getAttribute("class") === 'normalMarker'){
+               	  d3.select(this) //select the point and change its properties on mouseover
+	                 .transition()
+	                 .duration(300)
+	                 .attr('class', 'hoverMarker')
+	                 // .attr("fill", "white")
+	                 // .style("opacity", 1)
+	                 // .attr("r", (5 * markerRadius/transform.k))
+               }
+
+                if(this.getAttribute("class") === 'selectedMarker'){
+               	  d3.select(this) //select the point and change its properties on mouseover
+	                 .transition()
+	                 .duration(300)
+	                 .attr('class', 'hoverSelectedMarker')
+	                 // .attr("fill", "white")
+	                 // .style("opacity", 1)
+	                 // .attr("r", (5 * markerRadius/transform.k))
+               }
+
               });
 
         circles.on("mouseout", function(event, d) {
@@ -140,17 +147,39 @@ d3.csv("Patent_5yrs_all.csv")
             .duration(300)
             .style("opacity", 0);
 
-          d3.select(this)
-            .transition()
-            .attr("r", markerRadius)
-            .style("opacity", 0.6)
-            // .attr("r", markerRadius/transform.k)
+          // d3.select(this)
+          //   .transition()
+          //   // .attr("r", markerRadius)
+          //   .attr('class', 'normalMarker')
+          //   // .style("opacity", 0.6)
+          //   // .attr("r", markerRadius/transform.k)
+
+
+            if(this.getAttribute("class") === 'hoverMarker'){
+               	d3.select(this) //select the point and change its properties on mouseover
+	                .transition()
+	                 .duration(300)
+	                 .attr('class', 'normalMarker')
+	                 // .attr("fill", "white")
+	                 // .style("opacity", 1)
+	                 // .attr("r", (5 * markerRadius/transform.k))
+               }
+
+            if(this.getAttribute("class") === 'hoverSelectedMarker'){
+           	  	d3.select(this) //select the point and change its properties on mouseover
+                	.transition()
+                 	.duration(300)
+                 	.attr('class', 'selectedMarker')
+	                 // .attr("fill", "white")
+	                 // .style("opacity", 1)
+	                 // .attr("r", (5 * markerRadius/transform.k))
+           }
 
           if(isClicked === false){
             d3.select(this) //restore point to original value
                .transition()
                .duration(300)
-               .attr("fill", "gold")
+               // .attr("fill", "gold")
                //.attr("r", markerRadius)
                .attr("r", markerRadius)
                // .attr("r", markerRadius/transform.k)
@@ -198,7 +227,11 @@ d3.csv("Patent_5yrs_all.csv")
           // get that organization's patents
           map.selectAll("circle")
               .filter(function(d, i) {return d.organization === selectedOrg;})
-              .attr("fill", "red")
+              .attr('class', 'selectedMarker')
+              // .attr("fill", "red")
+              // .attr("r", 15)
+              // .style("opacity", 1.0)
+              // this.parentElement.appendChild(this);
         },
         resultsList: {
             noResults: (list, query) => {
@@ -214,8 +247,6 @@ d3.csv("Patent_5yrs_all.csv")
             }
         }
   });
-
-
 
 
 });

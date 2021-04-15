@@ -38,9 +38,6 @@ div.tooltip {
 text {
 	font-size: 20;
 }
-/* .marker{
-  fill: gold;
-} */
 
 .time {
 	position: absolute;
@@ -55,34 +52,29 @@ text {
 	width: 400px;
 
 }
-
 .action {
 	font-weight: bold
 }
+
 #title {
 	font-size: 50;
 	font-weight: bold
 }
-#ocean {
-  fill: grey;
-}
 
-
-/*experimental night theme*/
 .country{
   fill: #0b1c31;
   stroke: #f4d58d21;
 }
+
 #ocean {
   fill: #000B14;
 }
+
 text {
   font-size: 20;
   fill: #feffc8;
 }
-/* .marker{
-  fill: #fcff3a;
-} */
+
 div.tooltip {
   background: white;
 }
@@ -139,37 +131,50 @@ div.tooltip {
   color:rgba(#fff,0);
   background-color: red;
 }
+
 .autoComplete_result:hover{
   cursor:pointer;
   background-color: #0b1c31;
   font-weight: bold;
 }
+
 .autoComplete_highlighted{
   font-weight: 1500
   color: green;
 }
+
 .autoComplete_highlighted::selection{
   color: purple;
   background-color: yellow;
 }
-/*.autoComplete_selected{
-  cursor:pointer;
-  background-color:rgba(255,122,122,.15)}
-@media only screen and (max-width:600px){*/
-/*.autoComplete_wrapper{
-  width:320px
-}*/
-/*#autoComplete{width:18rem;
-  background-size:1.6rem;
-  background-position:left 1.1rem top .75rem}*/
+
 #autoComplete_list{
   margin:10px;
   padding-inline-start: 0px;
   padding-top:30px;
 }
 
-/*}@media screen and (-webkit-min-device-pixel-ratio:0){
-#autoComplete{border-width:1px}}@-moz-document url-prefix(){#autoComplete{background-size:1.2rem;
-  background-origin:border-box;
-  border-width:1px;
-  background-position:left 1.1rem top .8rem}*/
+/*all marker styles*/
+circle.normalMarker {
+  opacity: 0.6;
+  fill: gold;
+}
+
+circle.hoverMarker {
+  opacity: 1.0;
+  fill: white;
+}
+
+circle.selectedMarker {
+  opacity: 1.0;
+  fill: red;
+  r: 10;
+}
+
+circle.hoverSelectedMarker {
+  opacity: 1.0;
+  fill: white;
+  r: 10;
+}
+
+
