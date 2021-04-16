@@ -340,7 +340,7 @@ description.append('tspan')
 
 
 sourceInfo = svg.append('text')
-  .text('Data source: patentsview.org (2018)')
+  .text('Data source: patentsview.org')
   .attr('x', 15)
   .attr('y', height-20)
   .attr('id', 'source')
