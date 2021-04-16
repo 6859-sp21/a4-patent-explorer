@@ -64,6 +64,6 @@ Patents from Patentsview.org
 Map data from https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json
 
 ### Visualization D3 Sources: 
-Tootips modified from Intro to D3 - Workshop 2
-Map functionality inspired by Mapping Data with D3 - D3 Workshop Series
+Tootips modified from Intro to D3 - Workshop 2 <br>
+Map functionality inspired by Mapping Data with D3 - D3 Workshop Series<br>
 Search bar implemented via autocomplete.js
