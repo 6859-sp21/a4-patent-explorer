@@ -3,10 +3,10 @@ Where do bright ideas come from?
 
 Ashley Hartwell  
 Bryan Wen Xi Ong  
-Eamon Whalen
-6.859 Interactive Data Visualization
-April 16, 2021
-Patent Explorer
+Eamon Whalen<br>
+6.859 Interactive Data Visualization<br>
+April 16, 2021<br>
+
 
 [Webpage](https://6859-sp21.github.io/a4-patent-explorer/)
 
